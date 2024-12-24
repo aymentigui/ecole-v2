@@ -157,6 +157,16 @@ export default function Home() {
       return [formations[currentIndexFormation]];
     }
 
+    if(formations.length<2)
+      return [
+        formations[currentIndexFormation],
+      ];
+    if(formations.length<3)
+      return [
+        formations[currentIndexFormation],
+        formations[(currentIndexFormation + 1) % formations.length],
+      ];
+
     return [
       formations[currentIndexFormation],
       formations[(currentIndexFormation + 1) % formations.length],
