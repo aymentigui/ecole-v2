@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id            String          @id @default(cuid())
+  name          String?
+  username      String?         @unique(map: "User_username_key")
+  email         String?         @unique(map: "User_email_key")
+  password      String
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?
+  default       Boolean   @default(false)
+}
+
+model Formation {
+  id                 Int      @id @default(autoincrement())
+  name               String   @db.VarChar(255)
+  photo              String?  @db.VarChar(255)
+  startDate          DateTime
+  endDate            DateTime
+  company            String?   @db.VarChar(255)
+  price              Float    @default(0)
+  address            String?  @db.VarChar(255)
+  phone1             String?  @db.VarChar(20)
+  phone2             String?  @db.VarChar(20)
+  numberOfDays       Int?
+  numberOfHours      Int?
+  numberOfSessions   Int?
+  sessionDuration    Float?
+  remarks            String?  @db.Text
+  isRegistrationAllowed Boolean? @default(false)
+  typeFormation      Int
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime? @updatedAt
+  Inscriptions       Inscription[]
+}
+
+model Message {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String
+  content      String
+  createdAt    DateTime @default(now())
+  openedAt     DateTime?
+}
+
+model Inscription {
+  id              Int      @id @default(autoincrement())
+  nom             String
+  prenom          String
+  dateNaissance   DateTime?
+  telephone       String
+  email           String
+  adresse         String? // Optional
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  status          String   @default("en attente") // Possible values: en attente, confirme, annule
+  formationId     Int
+  Formation       Formation @relation(fields: [formationId], references: [id])
+}
+
+model Option {
+  id                  String  @id @default(cuid())
+  siteName            String?
+  logoUrl             String?
+  slice1Url           String?
+  slice2Url           String?
+  slice3Url           String?
+  siteDescription     String?
+  descriptionImageUrl String?
+  contactEmail        String?
+  address             String?
+  phone1              String?
+  phone2              String?
+  contactImageUrl     String?
+}
