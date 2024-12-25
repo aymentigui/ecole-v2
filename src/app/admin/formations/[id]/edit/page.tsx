@@ -10,11 +10,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { ImageIcon as ImageLucide, Calendar, Building2, DollarSign, MapPin, Phone, Clock } from 'lucide-react'
-import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { formationSchema } from '@/util/schema/formation'
 import { Formation } from '@/util/types'
 import { notFound, useParams } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 type FormationFormValues = z.infer<typeof formationSchema>
 
@@ -100,10 +100,9 @@ export default function EditEventPage({ params: paramsPromise }: { params: Promi
       }
   
       await response.json();
-      alert('Formation modifiée avec succès !');
+      toast.success("Formation modifiée avec succès !")
     } catch (error:any) {
-      console.error('Erreur lors de la modification de la formation:', error);
-      alert(error.message || 'Une erreur est survenue lors de la modification de la formation.');
+      toast.error(error.message || 'Une erreur est survenue lors de la modification de la formation.')
     } finally {
       setIsSubmitting(false);
     }
@@ -178,7 +177,7 @@ export default function EditEventPage({ params: paramsPromise }: { params: Promi
                 <div className="flex items-center gap-4">
                   {previewImage ? (
                     <div className="w-32 h-32 border-2 border-blue-500 rounded-lg overflow-hidden flex">
-                      <Image src={previewImage} alt="Prévisualisation" width={128} height={128} className="object-cover" />
+                      <img src={previewImage} alt="Prévisualisation" className="w-[128px] h-[128px] object-cover" />
                     </div>
                   ) : (
                     <div className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400">

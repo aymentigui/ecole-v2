@@ -7,8 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
-import Image from "next/image";
 import { getContactSettings } from "@/actions/settings";
+import toast from "react-hot-toast";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -49,15 +49,14 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        alert("Message envoyé avec succès !");
+        toast.success("Message envoyé avec succès !");
         setFormData({ name: "", email: "", content: "" }); // Réinitialise le formulaire
       } else {
         const errorData = await response.json();
-        alert(`Erreur : ${errorData.message}`);
+        toast.error(`Erreur : ${errorData.message}`);
       }
     } catch (error) {
-      console.error("Erreur lors de l'envoi du message :", error);
-      alert("Une erreur s'est produite. Veuillez réessayer.");
+      toast.error("Une erreur s'est produite. Veuillez réessayer.");
     }
   };
 
@@ -85,7 +84,7 @@ export default function Contact() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              {image && <Image src={image} alt="Notre école" width={600} height={400} className="rounded-lg h-[350px] object-cover object-top" />}
+              {image && <img src={image} alt="Notre école" className="rounded-lg w-[600px] h-[350px] object-cover object-top" />}
             </motion.div>
             <div>
               {(phone1 || phone2 || email || adresse)&& <h2 className="text-2xl font-semibold mb-4">Informations de contact</h2>}

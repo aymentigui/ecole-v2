@@ -6,6 +6,8 @@ import { signIn } from "@/auth"
 import { defaultRedirect } from "@/routes"
 import { AuthError } from "next-auth"
 
+const domainUrl = process.env.DOMAIN_URL;
+
 export const login = async  (data: z.infer<typeof LoginSchema>)=>{
     const validateFileds=LoginSchema.safeParse(data)
 
@@ -20,7 +22,7 @@ export const login = async  (data: z.infer<typeof LoginSchema>)=>{
             "credentials",{    
                 email,
                 password,
-                redirectTo: defaultRedirect
+                redirectTo: `${domainUrl}/${defaultRedirect}`
             }
         )
     } catch (error) {

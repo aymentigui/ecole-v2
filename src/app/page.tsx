@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -18,6 +17,7 @@ import { format } from 'date-fns'
 import { da, fr } from 'date-fns/locale'
 import { getAboutSettings, getGeneralSettings } from '@/actions/settings'
 import { recentcollaborations, recentFormations } from '@/actions/requetes'
+import toast from 'react-hot-toast'
 
 
 
@@ -27,9 +27,7 @@ export default function Home() {
   const [isLoadingC, setIsLoadingC] = useState(true);
   const [formations, setFormations] = useState<any[]>([]);
   const [isLoadingF, setIsLoadingF] = useState(true);
-  const [about,setAbout]=useState(`Notre école de formation s'engage à fournir une éducation de qualité depuis plus de 20 ans. 
-              Nous nous efforçons de préparer nos étudiants aux défis du monde professionnel en leur offrant 
-              des formations innovantes et adaptées aux besoins du marché.`)
+  const [about,setAbout]=useState(``)
   const [slides,setSlides]=useState([
     { image: '/slice1.png', text: 'Excellence académique' },
     { image: '/slice2.png', text: 'Innovation pédagogique' },
@@ -63,15 +61,14 @@ export default function Home() {
       });
 
       if (response.ok) {
-        alert("Message envoyé avec succès !");
+        toast.success('Message envoyé avec succès !')
         setFormData({ name: "", email: "", content: "" }); // Réinitialise le formulaire
       } else {
         const errorData = await response.json();
-        alert(`Erreur : ${errorData.message}`);
+        toast.error(`Erreur : ${errorData.message}`)
       }
     } catch (error) {
-      console.error("Erreur lors de l'envoi du message :", error);
-      alert("Une erreur s'est produite. Veuillez réessayer.");
+      toast.error("Une erreur s'est produite. Veuillez réessayer.")
     }
   };
 
@@ -85,7 +82,9 @@ export default function Home() {
       ]))
     })
     getAboutSettings().then((data)=>{
-      setAbout(p=>(data.siteDescription??p))
+      setAbout(p=>(data.siteDescription??`Notre école de formation s'engage à fournir une éducation de qualité depuis plus de 20 ans. 
+              Nous nous efforçons de préparer nos étudiants aux défis du monde professionnel en leur offrant 
+              des formations innovantes et adaptées aux besoins du marché.`))
     })
     const timer = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length)
@@ -220,7 +219,7 @@ export default function Home() {
               animate={{ opacity: index === currentSlide ? 1 : 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Image src={slide.image} alt={slide.text} quality={50}  layout="fill" objectFit="cover" />
+              <img src={slide.image} alt={slide.text} className='object-cover' />
               <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <h1 className="text-white text-4xl font-bold">{slide.text}</h1>
               </div>
@@ -250,13 +249,10 @@ export default function Home() {
                         exit={{ opacity: 0, y: -50 }}
                         transition={{ duration: 0.5 }}
                       ><Link href={`/collaborations/${collab.id}`}>
-                        {collab.photo && <Image
+                        {collab.photo && <img
                           src={collab.photo}
-                          quality={50}
                           alt={collab.name}
-                          width={300}
                           className={""+(collaborations.length<3 && "w-full h-[300px] object-contain")}
-                          height={200}
                         />}
                         <div className={"p-4 "+(collaborations.length<3 && " text-center")}>
                           <h3 className="font-semibold text-xl mb-2">{collab.name}</h3>
@@ -264,7 +260,8 @@ export default function Home() {
                           <p className="text-sm text-gray-600 mb-2">
                           {`Du ${format(collab.startDate, 'dd MMMM yyyy', { locale: fr })} au ${format(collab.endDate, 'dd MMMM yyyy', { locale: fr })}`}
                           </p>
-                          <p className="font-bold text-lg mb-2">{collab.price + ".00 DA"}</p>
+                          {(collab.price && collab.price!=0) &&
+                            <p className="font-bold text-lg mb-2">{collab.price + ".00 DA"}</p>}
                           <p>{collab.remarks}</p>
                         </div>
                       </Link>
@@ -314,20 +311,18 @@ export default function Home() {
                       exit={{ opacity: 0, y: -50 }}
                       transition={{ duration: 0.5 }}
                     ><Link href={`/formations/${formation.id}`}>
-                      {formation.photo&& <Image
+                      {formation.photo&& <img
                         src={formation.photo}
-                        quality={50}
                         alt={formation.name}
-                        width={300}
                         className={""+(formations.length<3 && "w-full h-[300px] object-contain")}
-                        height={200}
                       />}
                       <div className={"p-4 "+(formations.length<3 && " text-center")}>
                         <h3 className="font-semibold text-xl mb-2">{formation.name}</h3>
                         <p className="text-sm text-gray-600 mb-2">
                           Du {formation.startDate.toLocaleDateString()} au {formation.endDate.toLocaleDateString()}
                         </p>
-                        <p className="font-bold text-lg mb-2">{formation.price+".00 DA"}</p>
+                        {(formation.price && formation.price!=0) &&
+                          <p className="font-bold text-lg mb-2">{formation.price+".00 DA"}</p>}
                         <p>{formation.remarks}</p>
                       </div>
                     </Link>
@@ -357,7 +352,7 @@ export default function Home() {
         {/* About Section */}
         <section className="py-16 bg-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-8">À propos de notre école</h2>
+            <h2 className="text-3xl font-bold text-center mb-8">À propos de nous</h2>
             <p className="text-lg text-center mb-8">
               {about}
             </p>

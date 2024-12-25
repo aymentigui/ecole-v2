@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogFooter } from "@/components/
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Inscription } from "@/util/types";
 import { updateStatusInscription } from "@/actions/requetes";
+import toast from "react-hot-toast";
 
 interface TableRowComponentProps {
   inscription: Inscription
@@ -32,7 +33,7 @@ export default function TableRowComponent({ inscription }: TableRowComponentProp
     setStatus(e.target.value)
     const respone=await updateStatusInscription(inscription.id,e.target.value)
     if(!respone.success)
-      alert(respone.error )
+      toast.success(respone.error );
   }
 
   return (

@@ -13,6 +13,7 @@ import { ImageIcon as ImageLucide, Calendar, Building2, DollarSign, MapPin, Phon
 import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { formationSchema } from '@/util/schema/formation'
+import toast from 'react-hot-toast'
 
 type FormationFormValues = z.infer<typeof formationSchema>
 
@@ -61,12 +62,11 @@ export default function AddFormationPage() {
       }
   
       await response.json();
-      alert('Événement ajouté avec succès !');
+      toast.success('Événement ajouté avec succès !')
       form.reset();
       setPreviewImage(null);
     } catch (error:any) {
-      console.error('Erreur lors de l\'ajout de l\'événement:', error);
-      alert(error.message || 'Une erreur est survenue lors de l\'ajout de l\'événement.');
+      toast.error(error.message || 'Une erreur est survenue lors de l\'ajout de l\'événement.')
     } finally {
       setIsSubmitting(false);
     }
@@ -135,7 +135,7 @@ export default function AddFormationPage() {
                 <div className="flex items-center gap-4">
                   {previewImage ? (
                     <div className="w-32 h-32 border-2 border-blue-500 rounded-lg overflow-hidden flex">
-                      <Image src={previewImage} alt="Prévisualisation" width={128} height={128} className="object-cover" />
+                      <img src={previewImage} alt="Prévisualisation" className="w-[128px] h-[128px]  object-cover" />
                     </div>
                   ) : (
                     <div className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400">

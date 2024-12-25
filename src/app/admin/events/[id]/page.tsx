@@ -1,6 +1,5 @@
 "use client"
 import { notFound, useParams} from 'next/navigation'
-import Image from 'next/image'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -73,11 +72,9 @@ export default function EventPage() {
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             {collaboration.photo && (
-              <Image
+              <img
                 src={collaboration.photo}
                 alt={collaboration.name}
-                width={500}
-                height={300}
                 className="rounded-lg object-cover w-full h-64 mb-4"
               />
             )}

@@ -9,6 +9,7 @@ import loadingAnimation from "@/../public/loading.json";
 import dynamic from 'next/dynamic';
 const Lottie = dynamic(() => import('react-lottie'), { ssr: false });
 import SearchBar from "../components/table/searchBar-table";
+import toast from "react-hot-toast";
 
 export default function MessagesPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,8 +71,7 @@ export default function MessagesPage() {
       await response.json();
       fetchData()
     } catch (error:any) {
-      console.error('Erreur lors de la modification de la formation:', error);
-      alert(error.message || 'Une erreur est survenue lors de la modification de la formation.');
+      toast.error(error.message || 'Une erreur est survenue lors de la modification de la formation.')
     } 
   }
 

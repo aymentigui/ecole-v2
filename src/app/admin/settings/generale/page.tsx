@@ -90,7 +90,7 @@ export default function GeneralSettings() {
           onClick={() => document.getElementById('logo-input')?.click()}
           className="w-32 h-32 border cursor-pointer"
         >
-          <Image src={logo} alt="Logo" width={128} height={128} />
+          <img src={logo} alt="Logo" className='w-[128px] h-[128px] '  />
         </div>
         <input
           id="logo-input"
@@ -107,7 +107,7 @@ export default function GeneralSettings() {
             onClick={() => document.getElementById(`slice-input-${index}`)?.click()}
             className="w-64 h-32 border cursor-pointer"
           >
-            <Image src={slice} alt={`Slice ${index + 1}`} width={256} height={128} />
+            <img src={slice} alt={`Slice ${index + 1}`} className="w-[256px] h-[128px] " />
           </div>
           <input
             id={`slice-input-${index}`}

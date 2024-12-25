@@ -7,6 +7,7 @@ import { Eye } from "lucide-react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogFooter } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import toast from "react-hot-toast";
 
 interface TableRowComponentProps {
   message: {
@@ -40,8 +41,7 @@ export default function TableRowComponent({ message }: TableRowComponentProps) {
       message.openedAt=new Date()
       setIsDialogOpen(true);
     } catch (error:any) {
-      console.error('Erreur lors de la modification de la formation:', error);
-      alert(error.message || 'Une erreur est survenue lors de la modification de la formation.');
+      toast.error(error.message || 'Une erreur est survenue lors de la modification de la formation.');
     } 
   };
 

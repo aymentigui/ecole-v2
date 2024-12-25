@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { updateDescription, updateDescriptionImage, getAboutSettings, resetPhotoDescription } from "@/actions/settings"
@@ -57,7 +56,7 @@ export default function AboutSettings() {
           onClick={() => document.getElementById('description-image-input')?.click()}
           className="w-64 h-32 border cursor-pointer"
         >
-          <Image src={descriptionImage} alt="Description" className='w-64 h-32 object-contain' width={256} height={128} />
+          <img src={descriptionImage} alt="Description" className='w-64 h-32 object-contain' />
         </div>
         <input
           id="description-image-input"

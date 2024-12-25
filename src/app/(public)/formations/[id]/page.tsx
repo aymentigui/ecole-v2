@@ -2,7 +2,6 @@
 
 import { notFound, useParams } from "next/navigation"
 import { motion } from "framer-motion"
-import Image from "next/image"
 import { RegisterDialog } from "../../components/register-dialog"
 import { Navbar } from "../../components/Navbar"
 import { Footer } from "../../components/Footer"
@@ -63,11 +62,9 @@ export default function FormationPage() {
           <Card className="overflow-hidden">
             <CardHeader className="relative p-0">
               {formation.photo && (
-                <Image
+                <img
                   src={formation.photo}
                   alt={formation.name}
-                  width={1200}
-                  height={400}
                   className="w-full h-80 object-cover"
                 />
               )}
@@ -83,9 +80,10 @@ export default function FormationPage() {
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {`${format(formation.startDate, 'dd MMMM yyyy', { locale: fr })} - ${format(formation.endDate, 'dd MMMM yyyy', { locale: fr })}`}
                 </Badge>
-                <Badge variant="destructive" className="text-lg py-1 px-3">
+                {(formation.price && formation.price!=0) &&
+                  <Badge variant="destructive" className="text-lg py-1 px-3">
                   {formation.price} DA
-                </Badge>
+                </Badge>}
               </div>
 
               <p className="text-lg mb-8 text-gray-700 dark:text-gray-300">{formation.remarks}</p>

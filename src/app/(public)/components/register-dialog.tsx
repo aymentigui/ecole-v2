@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import toast from "react-hot-toast"
 
 const formSchema = z.object({
   nom: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
@@ -58,16 +59,15 @@ export function RegisterDialog(id:any) {
       });
 
       if (response.ok) {
-        alert("Message envoyé avec succès !");
+        toast.success('Message envoyé avec succès !')
         form.reset()
         setOpen(false)
       } else {
         const errorData = await response.json();
-        alert(`Erreur : ${errorData.message}`);
+        toast.error(`Erreur : ${errorData.message}`)
       }
     } catch (error) {
-      console.error("Erreur lors de l'envoi du message :", error);
-      alert("Une erreur s'est produite. Veuillez réessayer.");
+      toast.error("Une erreur s'est produite. Veuillez réessayer.")
     }finally{
     }
   }

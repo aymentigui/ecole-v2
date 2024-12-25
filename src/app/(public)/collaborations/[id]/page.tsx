@@ -2,7 +2,6 @@
 
 import { notFound, useParams } from "next/navigation"
 import { motion } from "framer-motion"
-import Image from "next/image"
 import { RegisterDialog } from "../../components/register-dialog"
 import { Navbar } from "../../components/Navbar"
 import { Footer } from "../../components/Footer"
@@ -63,12 +62,10 @@ export default function CollaborationPage() {
           <Card className="overflow-hidden">
             <CardHeader className="relative p-0">
               {collaboration.photo && (
-                <Image
+                <img
                   src={collaboration.photo}
                   alt={collaboration.company}
-                  width={1200}
-                  height={400}
-                  className="w-full h-80 object-cover"
+                  className="w-full h-[400px] object-cover"
                 />
               )}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
@@ -86,9 +83,10 @@ export default function CollaborationPage() {
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {`${format(collaboration.startDate, 'dd MMMM yyyy', { locale: fr })} - ${format(collaboration.endDate, 'dd MMMM yyyy', { locale: fr })}`}
                 </Badge>
-                <Badge variant="destructive" className="text-lg py-1 px-3">
+                { (collaboration.price && collaboration.price!=0) &&
+                  <Badge variant="destructive" className="text-lg py-1 px-3">
                   {collaboration.price} DA
-                </Badge>
+                </Badge>}
               </div>
 
               <p className="text-lg mb-8 text-gray-700 dark:text-gray-300">{collaboration.remarks}</p>

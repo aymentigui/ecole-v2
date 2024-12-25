@@ -7,6 +7,7 @@ import { Eye, Edit, Trash2, User, Phone } from "lucide-react";
 import Link from "next/link";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 interface TableRowComponentProps {
   event: any;
@@ -27,7 +28,7 @@ const FetchDelete= async (id:any,onDlt:any)=>{
   }
 
   await response.json();
-  alert('Événement supprimé avec succès !');
+  toast.success('Événement supprimé avec succès !');
   onDlt()
 }
 

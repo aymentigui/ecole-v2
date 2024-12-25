@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { updateContactInfo, updateContactImage, getContactSettings, resetContactImage } from '@/actions/settings'
@@ -87,7 +86,7 @@ export default function ContactSettings() {
           onClick={() => document.getElementById('contact-image-input')?.click()}
           className="w-64 h-32 border cursor-pointer"
         >
-          <Image src={contactImage} alt="Contact" width={256} height={128} />
+          <img src={contactImage} alt="Contact" className='w-[256px] h-[128px] ' />
         </div>
         <input
           id="contact-image-input"
