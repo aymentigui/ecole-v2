@@ -20,4 +20,4 @@ export function LogoComponent (){
     <Image src={logo} alt="Logo" className='rounded-full' width={60} height={60} />
   )
 }
-
+ 

@@ -6,9 +6,7 @@ import { getAboutSettings, getContactSettings } from '@/actions/settings'
 
 export function Footer() {
 
-  const [about,setAbout]=useState(`Notre école de formation s'engage à fournir une éducation de qualité depuis plus de 20 ans. 
-              Nous nous efforçons de préparer nos étudiants aux défis du monde professionnel en leur offrant 
-              des formations innovantes et adaptées aux besoins du marché.`)
+  const [about,setAbout]=useState(`Créé en 2022 sous la dénomination Groupement Formactive Center, notre collectif s'est fixé comme ambition principale de favoriser la formation continue. Avec une approche novatrice centrée sur les entreprises et les individus, de développement personnel et professionnel`)
   
   const [email,setEmail]=useState<undefined | string | null>()
   const [phone1,setPhone1]=useState<undefined | string | null>()
