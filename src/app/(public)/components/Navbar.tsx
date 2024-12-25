@@ -23,7 +23,7 @@ const navItems = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const [title,setTitlte]=useState("École de Formation")
+  const [title,setTitlte]=useState("Grp Formactive Center")
 
   useEffect(()=>{
     getGeneralSettings().then(data=>{
