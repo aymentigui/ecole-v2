@@ -5,8 +5,7 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogHeader, DialogFooter } from "@/components/ui/dialog";
-import { DialogTitle } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle } from "@/components/ui/dialog";
 import toast from "react-hot-toast";
 
 interface TableRowComponentProps {

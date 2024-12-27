@@ -8,14 +8,24 @@ import loadingAnimation from "@/../public/loading.json";
 import dynamic from 'next/dynamic';
 const Lottie = dynamic(() => import('react-lottie'), { ssr: false });
 import { allFormations } from "@/actions/requetes"
+import { categories } from "@/util/data"
 
 export function FormationsContent() {
   const [search, setSearch] = useState("")
+  const [searchCategory, setSearchCategory] = useState("")
   const [formations, setFormations] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredFormations = formations.filter((formation) =>
-    formation.name.toLowerCase().includes(search.toLowerCase())
+  {
+    if(formation.category){
+      return formation.name.toLowerCase().includes(search.toLowerCase()) &&
+      formation.category.toLowerCase().includes(searchCategory.toLowerCase())
+    }else{
+      return formation.name.toLowerCase().includes(search.toLowerCase()) 
+    }
+  }
   )
 
   const fetchData = async () => {
@@ -24,7 +34,7 @@ export function FormationsContent() {
       if(responce.success)
         setFormations(responce.data);
     } catch (error) {
-      console.error("Error fetching collaborations:", error);
+      console.error("Error fetching formation:", error);
     } finally {
       await new Promise((resolve) => setTimeout(resolve, 500));
       setIsLoading(false);
@@ -47,10 +57,32 @@ export function FormationsContent() {
 
   return (
     <div>
+      <div className="mb-4">
+        <div className="overflow-x-auto flex space-x-4 py-2">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() =>{ 
+                if(category==selectedCategory){
+                  setSelectedCategory("")
+                  setSearchCategory("");
+                }else{
+                  setSelectedCategory(category)
+                  setSearchCategory(category);
+                }
+              }}
+              className={`h-16 text-nowrap font-bold text-xs px-4 rounded-lg transition duration-200 
+                ${selectedCategory === category ? "bg-blue-500 text-white" : "bg-green-200 text-gray-700"}`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="mb-8 flex justify-center">
         <Input
           type="text"
-          placeholder="Recherchez une Collaboration..."
+          placeholder="Recherchez une Formation..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-md"
@@ -84,7 +116,7 @@ export function FormationsContent() {
       </div>
       {filteredFormations.length === 0 && !isLoading && (
         <p className="text-center text-gray-500 mt-8">
-          Aucune collaborations ne correspond à votre recherche.
+          Aucune formation ne correspond à votre recherche.
         </p>
       )}
     </div>

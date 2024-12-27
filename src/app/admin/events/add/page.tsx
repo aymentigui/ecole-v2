@@ -14,6 +14,8 @@ import { ImageIcon as ImageLucide, Calendar, Building2, DollarSign, MapPin, Phon
 import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import toast from 'react-hot-toast'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { categories } from '@/util/data'
 
 type EventFormValues = z.infer<typeof collaborationSchema>
 
@@ -155,7 +157,30 @@ export default function AddEventPage() {
                   </label>
                 </div>
               </div>
-
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Categorie</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choisir la categorie" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className='h-56'>
+                        {categories.map((categ, index) => (
+                            <SelectItem value={categ} key={index}>
+                              {categ}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}

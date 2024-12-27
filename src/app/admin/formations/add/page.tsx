@@ -14,6 +14,8 @@ import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { formationSchema } from '@/util/schema/formation'
 import toast from 'react-hot-toast'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {categories} from "@/util/data"
 
 type FormationFormValues = z.infer<typeof formationSchema>
 
@@ -153,6 +155,30 @@ export default function AddFormationPage() {
                   </label>
                 </div>
               </div>
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Categorie</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choisir la categorie" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className='h-56'>
+                        {categories.map((categ, index) => (
+                            <SelectItem value={categ} key={index}>
+                              {categ}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField

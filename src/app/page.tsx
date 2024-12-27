@@ -14,7 +14,7 @@ import loadingAnimation from "@/../public/loading.json";
 import dynamic from 'next/dynamic';
 const Lottie = dynamic(() => import('react-lottie'), { ssr: false });
 import { format } from 'date-fns'
-import { da, fr } from 'date-fns/locale'
+import { fr } from 'date-fns/locale'
 import { getAboutSettings, getGeneralSettings } from '@/actions/settings'
 import { recentcollaborations, recentFormations } from '@/actions/requetes'
 import toast from 'react-hot-toast'

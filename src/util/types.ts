@@ -15,6 +15,7 @@ export interface Formation {
   sessionDuration?: number;
   remarks?: string;
   isRegistrationAllowed?: boolean;
+  category?: string;
 }
   
   export interface Collaboration {
@@ -34,6 +35,7 @@ export interface Formation {
     sessionDuration?: number;
     remarks?: string;
     isRegistrationAllowed?: boolean;
+    category?: string;
   }
 
   export interface Message {

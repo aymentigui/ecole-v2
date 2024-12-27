@@ -24,10 +24,11 @@ export function CollaborationCard({ collaboration }: CollaborationCardProps) {
           <p className="text-sm text-muted-foreground mb-2">
             Compagne : {collaboration.company}
           </p>
-          <p className="text-sm text-muted-foreground mb-2">
+          {collaboration.startDate && collaboration.endDate && new Date(collaboration.startDate) >= new Date() && 
+            <p className="text-sm text-muted-foreground mb-2">
           {`Du ${format(collaboration.startDate, 'dd MMMM yyyy', { locale: fr })} au ${format(collaboration.endDate, 'dd MMMM yyyy', { locale: fr })}`}
-          </p>
-          {(collaboration.price && collaboration.price!=0) &&
+          </p>}
+          {(collaboration.price || collaboration.price!=0) &&
             <p className="font-bold text-lg mb-2">{collaboration.price} DA</p>}
           <p className="text-sm text-muted-foreground">
             {collaboration.remarks && collaboration.remarks.slice(0, 100)}...

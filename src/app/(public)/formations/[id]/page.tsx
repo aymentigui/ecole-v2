@@ -72,16 +72,21 @@ export default function FormationPage() {
                 <CardTitle className="text-4xl font-bold text-white mb-2">
                   {formation.name}
                 </CardTitle>
+                { formation.category && <p className="text-xs font-bold text-gray-200">
+                  Categorie : {formation.category}
+                </p>}
               </div>
             </CardHeader>
             <CardContent className="p-6">
               <div className="flex flex-wrap items-center gap-4 mb-6">
+                {formation.startDate && formation.endDate && new Date(formation.startDate) >= new Date() && (
                 <Badge variant="secondary" className="text-lg py-1 px-3">
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {`${format(formation.startDate, 'dd MMMM yyyy', { locale: fr })} - ${format(formation.endDate, 'dd MMMM yyyy', { locale: fr })}`}
+                  {`${format(new Date(formation.startDate), 'dd MMMM yyyy', { locale: fr })} - ${format(new Date(formation.endDate), 'dd MMMM yyyy', { locale: fr })}`}
                 </Badge>
-                {(formation.price && formation.price!=0) &&
-                  <Badge variant="destructive" className="text-lg py-1 px-3">
+              )}
+                {(formation.price || formation.price!=0) &&
+                  <Badge variant="destructive" className="text-lg font-bold py-1 px-3">
                   {formation.price} DA
                 </Badge>}
               </div>
@@ -139,7 +144,7 @@ export default function FormationPage() {
                 )}
               </div>
 
-              {formation.isRegistrationAllowed && (
+              {formation.startDate && formation.endDate && formation.isRegistrationAllowed && new Date(formation.startDate) >= new Date() && (
                 <div className="mt-8">
                   <RegisterDialog id={formation.id}/>
                 </div>

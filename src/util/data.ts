@@ -1,5 +1,27 @@
 // import { Collaboration, Formation, Inscription, Message } from './types';
 
+export const categories: string[] = [
+    "Informatique",
+    "Management de la qualité",
+    "Management",
+    "Comptabilité & Finances",
+    "Gestion de la Ressource Humaine",
+    "Appro & gestion des stocks",
+    "Logistique",
+    "HSE",
+    "Maritime et Portuaire",
+    "Banques et assurances",
+    "Industrie pharmaceutique",
+    "Anglais des affaires",
+    "Français des affaires",
+    "Hôtellerie Tourisme",
+    "Pêche et aquaculture",
+    "Electricité et Electronique",
+    "Communication",
+    "Commerce et marketing"
+  ];
+  
+
 // export const formations: Formation[] = [
 //   {
 //     id: "1",

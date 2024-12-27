@@ -8,15 +8,26 @@ import loadingAnimation from "@/../public/loading.json";
 import dynamic from 'next/dynamic';
 const Lottie = dynamic(() => import('react-lottie'), { ssr: false });
 import { allCollaborations } from "@/actions/requetes"
+import { categories } from "@/util/data"
 
 export function CollaborationsContent() {
   const [search, setSearch] = useState("")
+  const [searchCategory, setSearchCategory] = useState("")
   const [collaborations, setCollaborations] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
 
   const filteredCollaborations = collaborations.filter((collaboration) =>
-    collaboration.name.toLowerCase().includes(search.toLowerCase())
+    {
+      if(collaboration.category){
+        return collaboration.name.toLowerCase().includes(search.toLowerCase()) && collaboration.category.toLowerCase().includes(searchCategory.toLowerCase())
+      }else{
+        return collaboration.name.toLowerCase().includes(search.toLowerCase())
+      }
+    }
   )
+
   const fetchData = async () => {
     try {
       const responce = await allCollaborations();
@@ -44,15 +55,38 @@ export function CollaborationsContent() {
 
   return (
     <div>
+      <div className="mb-4">
+        <div className="overflow-x-auto flex space-x-4 py-2">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() =>{ 
+                if(category==selectedCategory){
+                  setSelectedCategory("")
+                  setSearchCategory("");
+                }else{
+                  setSelectedCategory(category)
+                  setSearchCategory(category);
+                }
+              }}
+              className={`h-16 text-nowrap font-bold text-xs px-4 rounded-lg transition duration-200 
+                ${selectedCategory === category ? "bg-blue-500 text-white" : "bg-green-200 text-gray-700"}`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="mb-8 flex justify-center">
         <Input
           type="text"
-          placeholder="Recherchez une Collaboration..."
+          placeholder="Recherchez un évènement..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-md"
         />
       </div>
+      
       <div>
       {isLoading ? (
           <div className="flex justify-center items-center h-56">
@@ -80,7 +114,7 @@ export function CollaborationsContent() {
       </div>
       {filteredCollaborations.length === 0 && !isLoading && (
         <p className="text-center text-gray-500 mt-8">
-          Aucune collaborations ne correspond à votre recherche.
+          Aucun évènement ne correspond à votre recherche.
         </p>
       )}
     </div>

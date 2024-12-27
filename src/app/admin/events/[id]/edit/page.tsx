@@ -15,6 +15,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { notFound, useParams } from 'next/navigation'
 import { Collaboration } from '@/util/types'
 import toast from 'react-hot-toast'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { categories } from '@/util/data'
 
 type EventFormValues = z.infer<typeof collaborationSchema>
 
@@ -69,6 +71,7 @@ export default function EditEventPage() {
         sessionDuration: collaboration.sessionDuration || 1,
         remarks: collaboration.remarks || '',
         isRegistrationAllowed: collaboration.isRegistrationAllowed || false,
+        category:collaboration.category
       });
       if (collaboration.photo) {
         setPreviewImage(collaboration.photo);
@@ -198,6 +201,30 @@ export default function EditEventPage() {
                   </label>
                 </div>
               </div>
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Categorie</FormLabel>
+                    <Select value={field.value} onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choisir la categorie" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className='h-56'>
+                        {categories.map((categ, index) => (
+                            <SelectItem value={categ} key={index}>
+                              {categ}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField

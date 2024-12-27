@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { CalendarIcon, MapPinIcon, PhoneIcon, ClockIcon, BuildingIcon, InfoIcon } from 'lucide-react'
+import { CalendarIcon, MapPinIcon, PhoneIcon, ClockIcon, BuildingIcon, InfoIcon, Layers2 } from 'lucide-react'
 import { FaMoneyBill } from 'react-icons/fa6'
 import { useEffect, useState } from 'react'
 import { Collaboration } from '@/util/types'
@@ -80,6 +80,13 @@ export default function EventPage() {
             )}
             <Card>
               <CardContent className="space-y-4 pt-6">
+              { collaboration.category &&
+                  <InfoItem
+                    icon={<Layers2 className="w-5 h-5 text-green-500" />}
+                    label="Categorie"
+                    value={collaboration.category}
+                  />
+                }
                 {collaboration.startDate && collaboration.endDate && (
                   <InfoItem
                     icon={<CalendarIcon className="w-5 h-5 text-blue-500" />}

@@ -15,6 +15,8 @@ import { formationSchema } from '@/util/schema/formation'
 import { Formation } from '@/util/types'
 import { notFound, useParams } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { categories } from '@/util/data'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 type FormationFormValues = z.infer<typeof formationSchema>
 
@@ -71,7 +73,9 @@ export default function EditEventPage({ params: paramsPromise }: { params: Promi
         sessionDuration: formation.sessionDuration || 1,
         remarks: formation.remarks || '',
         isRegistrationAllowed: formation.isRegistrationAllowed || false,
+        category: formation.category
       });
+      form.setValue("category",formation.category)
       if (formation.photo) {
         setPreviewImage(formation.photo);
       }
@@ -195,7 +199,30 @@ export default function EditEventPage({ params: paramsPromise }: { params: Promi
                   </label>
                 </div>
               </div>
-
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Categorie</FormLabel>
+                    <Select value={field.value} onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choisir la categorie" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className='h-56'>
+                        {categories.map((categ, index) => (
+                            <SelectItem value={categ} key={index}>
+                              {categ}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}

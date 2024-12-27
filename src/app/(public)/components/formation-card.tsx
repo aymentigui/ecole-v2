@@ -21,10 +21,10 @@ export function FormationCard({ formation }: FormationCardProps) {
           <CardTitle>{formation.name}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground mb-2">
+          {formation.startDate && formation.endDate && new Date(formation.startDate) >= new Date() && <p className="text-sm text-muted-foreground mb-2">
           {`Du ${format(formation.startDate, 'dd MMMM yyyy', { locale: fr })} au ${format(formation.endDate, 'dd MMMM yyyy', { locale: fr })}`}
-          </p>
-          {(formation.price && formation.price!=0) &&
+          </p>}
+          {(formation.price || formation.price!=0) &&
             <p className="font-bold text-lg mb-2">{formation.price} DA</p>}
           <p className="text-sm text-muted-foreground">
             {formation.remarks && formation.remarks.slice(0, 100)}...

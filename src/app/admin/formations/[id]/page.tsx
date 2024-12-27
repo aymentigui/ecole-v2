@@ -3,7 +3,7 @@ import { notFound, useParams } from 'next/navigation'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CalendarIcon, MapPinIcon, PhoneIcon, ClockIcon,  InfoIcon } from 'lucide-react'
+import { CalendarIcon, MapPinIcon, PhoneIcon, ClockIcon,  InfoIcon, Layers2 } from 'lucide-react'
 import { formationSchema } from '@/util/schema/formation'
 import { z } from 'zod'
 import { FaMoneyBill } from 'react-icons/fa6'
@@ -80,6 +80,13 @@ export default function EventPage(params:any) {
             )}
             <Card>
               <CardContent className="space-y-4 pt-6">
+                { formation.category &&
+                  <InfoItem
+                    icon={<Layers2 className="w-5 h-5 text-green-500" />}
+                    label="Categorie"
+                    value={formation.category}
+                  />
+                }
                 {formation.startDate && formation.endDate && (
                   <InfoItem
                     icon={<CalendarIcon className="w-5 h-5 text-blue-500" />}
@@ -118,6 +125,7 @@ export default function EventPage(params:any) {
                 />
               </CardContent>
             </Card>
+            
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl">Détails de la formation</CardTitle>

@@ -72,18 +72,25 @@ export default function CollaborationPage() {
                 <CardTitle className="text-4xl font-bold text-white mb-2">
                   {collaboration.name}
                 </CardTitle>
-                <p className="text-xl text-gray-200">
-                  Compagne : {collaboration.company}
-                </p>
+                <div className="flex justify-between">
+                  {collaboration .company && <p className="text-xs font-bold text-gray-200">
+                    Compagne : {collaboration.company}
+                  </p>}
+                  { collaboration .category && <p className="text-xs font-bold text-gray-200">
+                    Categorie : {collaboration.category}
+                  </p>}
+                </div>
               </div>
             </CardHeader>
             <CardContent className="p-6">
               <div className="flex flex-wrap items-center gap-4 mb-6">
+              {collaboration.startDate && collaboration.endDate && new Date(collaboration.startDate) >= new Date() && (
                 <Badge variant="secondary" className="text-lg py-1 px-3">
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {`${format(collaboration.startDate, 'dd MMMM yyyy', { locale: fr })} - ${format(collaboration.endDate, 'dd MMMM yyyy', { locale: fr })}`}
+                  {`${format(new Date(collaboration.startDate), 'dd MMMM yyyy', { locale: fr })} - ${format(new Date(collaboration.endDate), 'dd MMMM yyyy', { locale: fr })}`}
                 </Badge>
-                { (collaboration.price && collaboration.price!=0) &&
+              )}
+                { (collaboration.price || collaboration.price!=0) &&
                   <Badge variant="destructive" className="text-lg py-1 px-3">
                   {collaboration.price} DA
                 </Badge>}
@@ -141,8 +148,7 @@ export default function CollaborationPage() {
                   />
                 )}
               </div>
-
-              {collaboration.isRegistrationAllowed && (
+              {collaboration.startDate && collaboration.endDate && collaboration.isRegistrationAllowed && new Date(collaboration.startDate) >= new Date()  && (
                 <div className="mt-8">
                   <RegisterDialog />
                 </div>
