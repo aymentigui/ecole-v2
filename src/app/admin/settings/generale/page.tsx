@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { updateSiteName, updateSlice, resetSlice, updateLogo, getGeneralSettings, resetLogo, updateSlideTextName } from '@/actions/settings'
+import toast from 'react-hot-toast'
 
 export default function GeneralSettings() {
   const router = useRouter()
@@ -19,69 +20,84 @@ export default function GeneralSettings() {
   useEffect(() => {
     async function fetchData() {
       const data = await getGeneralSettings()
-      if(data.slice1Text  )
-        setSliceText1(data.slice1Text)  
-      if(data.slice2Text  )
-        setSliceText2(data.slice2Text)  
-      if(data.slice3Text  )
-        setSliceText3(data.slice3Text) 
-      if(data.siteName  )
-        setSiteName(data.siteName)
-      if(data.logoUrl  ){
-        setLogo(data.logoUrl)           
-    }
-      if(data.slice1Url){
-        var x=data.slice1Url 
-        setSlices((p)=>{const [s1,s2,s3]=p; return [x,s2,s3]})}
-      if(data.slice2Url  ){
-        var x=data.slice2Url 
-        setSlices((p)=>{const [s1,s2,s3]=p; return [s1,x,s3]})
-        }
-      if(data.slice3Url  ){
-        var x=data.slice3Url 
-        setSlices((p)=>{const [s1,s2,s3]=p; return [s1,s2,x]})
-        }
+      setSliceText1(p=>data.slice1Text??p)
+      setSliceText2(p=>data.slice2Text??p)
+      setSliceText3(p=>data.slice3Text??p)
+      setSiteName(p=>data.siteName??p)
+      setLogo(p=>data.logoUrl??p)    
+      setSlices(p=>[data.slice1Url??p[0], data.slice2Url??p[1], data.slice3Url??p[2]])
     }
     fetchData()
   }, [])
 
   const handleSiteNameChange = async () => {
-    await updateSiteName(siteName)
-    router.refresh()
+    try{
+      await updateSiteName(siteName)
+      router.refresh()
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
-  const handleSlideTextChange = async (index:number) => {
-    const text=index==1?sliceText1:index==2?sliceText2:sliceText3
-    await updateSlideTextName(text,index)
-    router.refresh()
+  const handleSlideTextChange = async (index:number) => {  
+    try{
+      const text=index==1?sliceText1:index==2?sliceText2:sliceText3
+      await updateSlideTextName(text,index)
+      router.refresh()
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
   const handleSliceChange = async (index: number, file: File) => {
-    const newSliceUrl = await updateSlice(index + 1, file)
-    if(newSliceUrl)
-    setSlices(prev => {
-      const newSlices = [...prev]
-      newSlices[index] = newSliceUrl
-      return newSlices
-    })
+    try{
+      const newSliceUrl = await updateSlice(index + 1, file)
+      if(newSliceUrl)
+      setSlices(prev => {
+        const newSlices = [...prev]
+        newSlices[index] = newSliceUrl
+        return newSlices
+      })
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
-  const handleSliceReset = async (index: number) => {
-    await resetSlice(index + 1)
-    setSlices(prev => {
-      const newSlices = [...prev]
-      newSlices[index] = `/slice${index + 1}.png`
-      return newSlices
-    })
+  const handleSliceReset = async (index: number) => {  
+    try{
+      await resetSlice(index + 1)
+      setSlices(prev => {
+        const newSlices = [...prev]
+        newSlices[index] = `/slice${index + 1}.png`
+        return newSlices
+      })
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
+
   const handleLogoReset = async () => {
-    await resetLogo()
-    setLogo("/logo.png")
+    try{
+      await resetLogo()
+      setLogo("/logo.png")
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
-  const handleLogoChange = async (file: File) => {
-    const newLogoUrl = await updateLogo(file)
-    if(newLogoUrl)
-        setLogo(newLogoUrl)
+  const handleLogoChange = async (file: File) => {    
+    try{
+      const newLogoUrl = await updateLogo(file)
+      if(newLogoUrl)
+          setLogo(newLogoUrl)
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
   return (

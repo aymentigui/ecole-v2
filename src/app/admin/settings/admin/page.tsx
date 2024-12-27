@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { getUsers, updateUserEmail, deleteUser, addUser } from "@/actions/settings"
+import toast from 'react-hot-toast'
 
 export default function AdminSettings() {
   const router = useRouter()
@@ -30,24 +31,39 @@ export default function AdminSettings() {
   }, [])
 
   const handleUpdateEmail = async (id: string, newEmail: string) => {
-    await updateUserEmail(id, newEmail)
-    setUsers(users.map(user => user.id === id ? { ...user, email: newEmail } : user))
-    router.refresh()
+    try{
+      await updateUserEmail(id, newEmail)
+      setUsers(users.map(user => user.id === id ? { ...user, email: newEmail } : user))
+      router.refresh()
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
   const handleDeleteUser = async (id: string) => {
-    await deleteUser(id)
-    setUsers(users.filter(user => user.id !== id))
-    router.refresh()
+    try{
+      await deleteUser(id)
+      setUsers(users.filter(user => user.id !== id))
+      router.refresh()
+      toast.success("suppression réussie")
+    }catch(erreur){
+      toast.error("suppression échouée")
+    }
   }
 
   const handleAddUser = async () => {
-    const newUser = await addUser(newUserEmail, newUserPassword)
-    setUsers([...users, newUser])
-    setNewUserEmail('')
-    setNewUserPassword('')
-    setIsDialogOpen(false)
-    router.refresh()
+    try{
+      const newUser = await addUser(newUserEmail, newUserPassword)
+      setUsers([...users, newUser])
+      setNewUserEmail('')
+      setNewUserPassword('')
+      setIsDialogOpen(false)
+      router.refresh()
+      toast.success("ajout réussie")
+    }catch(erreur){
+      toast.error("ajout échouée")
+    }
   }
 
   return (

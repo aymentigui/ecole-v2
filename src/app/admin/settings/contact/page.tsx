@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { updateContactInfo, updateContactImage, getContactSettings, resetContactImage } from '@/actions/settings'
+import toast from 'react-hot-toast'
 
 export default function ContactSettings() {
   const router = useRouter()
@@ -37,14 +38,24 @@ export default function ContactSettings() {
   }
 
   const handleImageReset = async () => {
-    await resetContactImage()
-    setContactImage("/contact.png")
+    try{
+      await resetContactImage()
+      setContactImage("/contact.png")
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
   const handleContactImageChange = async (file: File) => {
-    const newImageUrl = await updateContactImage(file)
-    if(newImageUrl)
+    try{
+      const newImageUrl = await updateContactImage(file)
+      if(newImageUrl)
         setContactImage(newImageUrl)
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
   return (

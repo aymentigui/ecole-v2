@@ -76,7 +76,7 @@ model Option {
   slice1Url           String?
   slice2Url           String?
   slice3Url           String?
-  siteDescription     String?
+  siteDescription     String?  @db.Text
   descriptionImageUrl String?
   contactEmail        String?
   address             String?

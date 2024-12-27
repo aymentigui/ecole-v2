@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { updateDescription, updateDescriptionImage, getAboutSettings, resetPhotoDescription } from "@/actions/settings"
+import toast from 'react-hot-toast'
 
 export default function AboutSettings() {
   const router = useRouter()
@@ -23,19 +24,34 @@ export default function AboutSettings() {
   }, [])
 
   const handleDescriptionChange = async () => {
-    await updateDescription(description)
-    router.refresh()
+    try{
+      await updateDescription(description)
+      router.refresh()
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
   const handleDescriptionImageChange = async (file: File) => {
-    const newImageUrl = await updateDescriptionImage(file)
-    if(newImageUrl)
-        setDescriptionImage(newImageUrl)
+    try{
+      const newImageUrl = await updateDescriptionImage(file)
+      if(newImageUrl)
+          setDescriptionImage(newImageUrl)
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
   const handleDescriptionReset = async () => {
-    await resetPhotoDescription()
-    setDescriptionImage("/formation.png")
+    try{
+      await resetPhotoDescription()
+      setDescriptionImage("/formation.png")
+      toast.success("modification réussie")
+    }catch(erreur){
+      toast.error("modification échouée")
+    }
   }
 
   return (

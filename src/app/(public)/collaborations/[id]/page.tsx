@@ -150,7 +150,7 @@ export default function CollaborationPage() {
               </div>
               {collaboration.startDate && collaboration.endDate && collaboration.isRegistrationAllowed && new Date(collaboration.startDate) >= new Date()  && (
                 <div className="mt-8">
-                  <RegisterDialog />
+                  <RegisterDialog id={collaboration.id} />
                 </div>
               )}
             </CardContent>

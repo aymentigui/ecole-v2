@@ -26,7 +26,7 @@ import toast from "react-hot-toast"
 const formSchema = z.object({
   nom: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
   prenom: z.string().min(2, "Le prénom doit contenir au moins 2 caractères"),
-  dateNaissance: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format de date invalide"),
+  dateNaissance: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format de date invalide").optional(),
   telephone: z.string().regex(/^\d{10}$/, "Le numéro de téléphone doit contenir 10 chiffres"),
   email: z.string().email("Adresse e-mail invalide"),
   adresse: z.string().optional(),
@@ -48,6 +48,7 @@ export function RegisterDialog(id:any) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      console.log(id)
       const data={id:id.id,...values}
       const jsonData=JSON.stringify(data)
       const response = await fetch("/api/inscription", {
@@ -59,7 +60,7 @@ export function RegisterDialog(id:any) {
       });
 
       if (response.ok) {
-        toast.success('Message envoyé avec succès !')
+        toast.success('Inscription envoyé avec succès !')
         form.reset()
         setOpen(false)
       } else {

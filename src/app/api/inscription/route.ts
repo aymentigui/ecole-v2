@@ -9,7 +9,7 @@ export async function POST(req:Request) {
     const data= await req.json();
     const id=data.id
 
-    if (!data.nom || !data.prenom || !data.dateNaissance || !data.telephone || !data.email || !id) {
+    if (!data.nom || !data.prenom || !data.telephone || !data.email || !id) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     delete data.id
