@@ -222,7 +222,7 @@ export default function Home() {
           {slides.map((slide, index) => (
             <motion.div
               key={index}
-              className="absolute h-full w-full inset-0"
+              className="absolute flex justify-center items-center h-full w-full inset-0"
               initial={{ opacity: 0 }}
               animate={{ opacity: index === currentSlide ? 1 : 0 }}
               transition={{ duration: 0.5 }}
@@ -256,7 +256,7 @@ export default function Home() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -50 }}
                           transition={{ duration: 0.5 }}
-                        ><Link href={`/collaborations/${collab.id??"0"}`}>
+                        ><Link href={`/collaborations/${collab.id ?? "0"}`}>
                             {collab.photo && <img
                               src={collab.photo}
                               alt={collab.name}
@@ -271,7 +271,7 @@ export default function Home() {
                               </p>}
                               {(collab.price || collab.price != 0) &&
                                 <p className="font-bold text-lg mb-2">{collab.price + ".00 DA"}</p>}
-                                <p>{isSmallScreen?collab.remarks.substring(0, 100) :collab.remarks.substring(0, 200)  }</p>
+                              <p>{isSmallScreen ? collab.remarks.substring(0, 100) : collab.remarks.substring(0, 200)}</p>
                             </div>
                           </Link>
                         </motion.div>
@@ -332,7 +332,7 @@ export default function Home() {
                             </p>}
                             {(formation.price || formation.price != 0) &&
                               <p className="font-bold text-lg mb-2">{formation.price + ".00 DA"}</p>}
-                            <p>{isSmallScreen?formation.remarks.substring(0, 100) :formation.remarks.substring(0, 200)  }</p>
+                            <p>{isSmallScreen ? formation.remarks.substring(0, 100) : formation.remarks.substring(0, 200)}</p>
                           </div>
                         </Link>
                       </motion.div>
@@ -426,42 +426,19 @@ export default function Home() {
             </ul>
           </motion.div>
         </div>
-        <motion.div
-          className="mt-12 mx-4 md:mx-auto max-w-4xl bg-gradient-to-br from-blue-50 to-blue-200 p-10 rounded-3xl shadow-xl transform hover:scale-105 transition-transform duration-300"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          <h2 className="text-4xl font-bold text-blue-800 mb-8 text-center tracking-wide">
-            Notre Vision
-          </h2>
-          <p className="text-lg text-gray-700 leading-8 mb-6 text-center">
-            Le Grp Formactive Center aspire à transformer le paysage de la formation continue en répondant directement aux besoins en formation et inspirer la culture d’apprentissage tout au long de la vie.
-          </p>
-          <motion.div
-            className="flex items-center justify-center mt-6"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-          >
-            <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 12h6m2 2H7m8-6H9m4-4h-2m2 12h-2m2 6H9m12-12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+        <section className="py-16 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-6 tracking-wide">
+              Notre Vision
+            </h2>
+            <p className="text-xl text-gray-700 text-center max-w-2xl mx-auto mb-8 leading-relaxed">
+              Le Grp Formactive Center aspire à transformer le paysage de la formation continue en répondant directement aux besoins en formation et inspirer la culture d’apprentissage tout au long de la vie.
+            </p>
+            <div className="flex justify-center">
+              <div className="w-16 h-1 bg-blue-500 rounded-full"></div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </section>
 
         {/* Contact Form Section */}
         <section className="py-16">
