@@ -5,21 +5,30 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { updateSiteName, updateSlice, resetSlice, updateLogo, getGeneralSettings, resetLogo } from '@/actions/settings'
+import { updateSiteName, updateSlice, resetSlice, updateLogo, getGeneralSettings, resetLogo, updateSlideTextName } from '@/actions/settings'
 
 export default function GeneralSettings() {
   const router = useRouter()
   const [siteName, setSiteName] = useState('')
   const [logo, setLogo] = useState('/logo.png')
   const [slices, setSlices] = useState(['/slice1.png', '/slice2.png', '/slice3.png'])
+  const [sliceText1, setSliceText1] = useState('')
+  const [sliceText2, setSliceText2] = useState('')
+  const [sliceText3, setSliceText3] = useState('')
 
   useEffect(() => {
     async function fetchData() {
       const data = await getGeneralSettings()
+      if(data.slice1Text  )
+        setSliceText1(data.slice1Text)  
+      if(data.slice2Text  )
+        setSliceText2(data.slice2Text)  
+      if(data.slice3Text  )
+        setSliceText3(data.slice3Text) 
       if(data.siteName  )
         setSiteName(data.siteName)
       if(data.logoUrl  ){
-        setLogo(data.logoUrl)    
+        setLogo(data.logoUrl)           
     }
       if(data.slice1Url){
         var x=data.slice1Url 
@@ -38,6 +47,11 @@ export default function GeneralSettings() {
 
   const handleSiteNameChange = async () => {
     await updateSiteName(siteName)
+    router.refresh()
+  }
+  const handleSlideTextChange = async (index:number) => {
+    const text=index==1?sliceText1:index==2?sliceText2:sliceText3
+    await updateSlideTextName(text,index)
     router.refresh()
   }
 
@@ -78,11 +92,51 @@ export default function GeneralSettings() {
           type="text"
           value={siteName}
           onChange={(e) => setSiteName(e.target.value)}
-          placeholder="Site Name"
+          placeholder="Nom de site"
           className='my-4'
         />
         <Button onClick={handleSiteNameChange}>Confirm</Button>
       </div>
+
+
+      <div className='m-12 inline-block'>
+      <h1 className='my-4 text-sm font-bold'>Text dans slide 1</h1>
+        <Input
+          type="text"
+          value={sliceText1}
+          onChange={(e) => setSliceText1(e.target.value)}
+          placeholder="Text slide 1"
+          className='my-4'
+        />
+        <Button onClick={()=>handleSlideTextChange(1)}>Confirm</Button>
+      </div>
+
+      <div className='m-12 inline-block'>
+      <h1 className='my-4 text-sm font-bold'>Text dans slide 2</h1>
+        <Input
+          type="text"
+          value={sliceText2}
+          onChange={(e) => setSliceText2(e.target.value)}
+          placeholder="Text slide 2"
+          className='my-4'
+        />
+        <Button onClick={()=>handleSlideTextChange(2)}>Confirm</Button>
+      </div>
+
+      <div className='m-12 inline-block'>
+      <h1 className='my-4 text-sm font-bold'>Text dans slide 3</h1>
+        <Input
+          type="text"
+          value={sliceText3}
+          onChange={(e) => setSliceText3(e.target.value)}
+          placeholder="Text slide 3"
+          className='my-4'
+        />
+        <Button onClick={()=>handleSlideTextChange(3)}>Confirm</Button>
+      </div>
+
+
+
 
       <div className='m-12'>
         <h1 className='my-4 text-xl font-bold'>Logo de site</h1>

@@ -83,4 +83,7 @@ model Option {
   phone1              String?
   phone2              String?
   contactImageUrl     String?
+  slice1Text          String?
+  slice2Text          String?
+  slice3Text          String?
 }

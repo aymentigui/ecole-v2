@@ -14,6 +14,7 @@ export const allFormations = async (): Promise<
             },
             orderBy: {
                 startDate: 'desc',
+                isRegistrationAllowed: 'desc'
             },
         });
         return { success: true, data: formations };
@@ -32,6 +33,7 @@ export const allCollaborations = async (): Promise<
             },
             orderBy: {
                 startDate: 'desc',
+                isRegistrationAllowed: 'desc'
             },
         });
         return { success: true, data: collaborations };
@@ -50,6 +52,7 @@ export const recentFormations = async (): Promise<
           },
           orderBy: {
             startDate: 'desc',
+            isRegistrationAllowed: 'desc'
           },
           take: 6, 
         });
@@ -69,6 +72,7 @@ export const recentcollaborations = async (): Promise<
           },
           orderBy: {
             startDate: 'desc',
+            isRegistrationAllowed: 'desc'
           },
           take: 6, 
         });

@@ -29,9 +29,9 @@ export default function Home() {
   const [isLoadingF, setIsLoadingF] = useState(true);
   const [about,setAbout]=useState(``)
   const [slides,setSlides]=useState([
-    { image: '/slice1.png', text: 'Excellence académique' },
-    { image: '/slice2.png', text: 'Innovation pédagogique' },
-    { image: '/slice3.png', text: 'Accompagnement personnalisé' },
+    { image: '/slice1.png', text: '' },
+    { image: '/slice2.png', text: '' },
+    { image: '/slice3.png', text: '' },
   ])
 
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -76,9 +76,9 @@ export default function Home() {
   useEffect(() => {
     getGeneralSettings().then((data)=>{
       setSlides((p)=>([
-        {image:data.slice1Url??p[0].image,text:p[0].text},
-        {image:data.slice2Url??p[1].image,text:p[1].text},
-        {image:data.slice3Url??p[2].image,text:p[2].text},
+        {image:data.slice1Url??p[0].image,text:data.slice1Text??""},
+        {image:data.slice2Url??p[1].image,text:data.slice2Text??""},
+        {image:data.slice3Url??p[2].image,text:data.slice3Text??""},
       ]))
     })
     getAboutSettings().then((data)=>{

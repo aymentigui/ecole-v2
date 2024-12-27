@@ -21,6 +21,19 @@ const record = await prisma.option.findUnique({
           })
     } 
 }
+export async function updateSlideTextName(text: string, index:number) {
+  const record = await prisma.option.findUnique({
+      where: { id: '1' },
+      });
+      
+      if (record) {
+          await prisma.option.upsert({
+              where: { id: '1' },
+              update: { [`slice${index}Text`]: text },
+              create: { id: '1', [`slice${index}Text`]: text },
+            })
+      } 
+  }
 
 async function saveFile(file: File, directory: string): Promise<string> {
   const bytes = await file.arrayBuffer()
@@ -258,6 +271,9 @@ export async function getGeneralSettings() {
       slice1Url: true,
       slice2Url: true,
       slice3Url: true,
+      slice1Text: true,
+      slice2Text: true,
+      slice3Text: true,
     },
   })
   return options || {
@@ -266,6 +282,9 @@ export async function getGeneralSettings() {
     slice1Url: '/slice1.png',
     slice2Url: '/slice2.png',
     slice3Url: '/slice3.png',
+    slice1Text: "",
+    slice2Text: "",
+    slice3Text: "",
   }
 }
 
