@@ -43,7 +43,6 @@ export const { handlers , auth, signIn, signOut } =
         if(!user || !user.id)
           return false
         const existinUser=await getUserById(user.id)
-        console.log(user)
         /*
         if(!existinUser || !existinUser.emailVerified)
           return false

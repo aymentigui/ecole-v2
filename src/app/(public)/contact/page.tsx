@@ -93,7 +93,8 @@ export default function Contact() {
               {email && <p className="mb-2">Email: {email}</p>}
               {adresse && <p className="mb-2">Adresse: {adresse}</p>}
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          </motion.div>
+          <form onSubmit={handleSubmit} className="m-auto space-y-4 max-w-[600px]">
               <Input
                 type="text"
                 name="name"
@@ -118,7 +119,6 @@ export default function Contact() {
                 Envoyer
               </Button>
             </form>
-          </motion.div>
         </div>
       </main>
       <Footer />

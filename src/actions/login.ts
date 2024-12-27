@@ -2,9 +2,10 @@
 
 import { LoginSchema } from "@/util/schema/user"
 import { z } from "zod"
-import { signIn } from "@/auth"
+import { signIn, signOut } from "@/auth"
 import { defaultRedirect } from "@/routes"
 import { AuthError } from "next-auth"
+import { redirect } from "next/navigation"
 
 const domainUrl = process.env.DOMAIN_URL;
 
@@ -18,13 +19,15 @@ export const login = async  (data: z.infer<typeof LoginSchema>)=>{
     const {email,password}= validateFileds.data!
 
     try {
-        await signIn(
+        const login=await signIn(
             "credentials",{    
                 email,
                 password,
-                redirectTo: `${domainUrl}/${defaultRedirect}`
+                redirect:false
             }
         )
+        if(login)
+            redirect(domainUrl+"/admin/clients")
     } catch (error) {
         if(error instanceof AuthError){
             switch(error.type){
@@ -35,6 +38,11 @@ export const login = async  (data: z.infer<typeof LoginSchema>)=>{
             }
         }
         throw error
-    }
-    
+    }   
+}
+
+export const logOut=async ()=>{
+    const logout=await signOut()
+    if(logout)
+        redirect(domainUrl+"/auth/login")
 }

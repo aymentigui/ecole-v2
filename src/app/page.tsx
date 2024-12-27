@@ -257,10 +257,11 @@ export default function Home() {
                         <div className={"p-4 "+(collaborations.length<3 && " text-center")}>
                           <h3 className="font-semibold text-xl mb-2">{collab.name}</h3>
                           <p className="text-sm text-gray-600 italic mb-2">{collab.company}</p>
-                          <p className="text-sm text-gray-600 mb-2">
-                          {`Du ${format(collab.startDate, 'dd MMMM yyyy', { locale: fr })} au ${format(collab.endDate, 'dd MMMM yyyy', { locale: fr })}`}
-                          </p>
-                          {(collab.price && collab.price!=0) &&
+                          {<p className="text-sm text-gray-600 mb-2">
+                          {collab.startDate && collab.endDate && collab.isRegistrationAllowed && new Date(collab.startDate) >= new Date()  && 
+                          `Du ${format(collab.startDate, 'dd MMMM yyyy', { locale: fr })} au ${format(collab.endDate, 'dd MMMM yyyy', { locale: fr })}`}
+                          </p>}
+                          {(collab.price || collab.price!=0) &&
                             <p className="font-bold text-lg mb-2">{collab.price + ".00 DA"}</p>}
                           <p>{collab.remarks}</p>
                         </div>
@@ -318,10 +319,10 @@ export default function Home() {
                       />}
                       <div className={"p-4 "+(formations.length<3 && " text-center")}>
                         <h3 className="font-semibold text-xl mb-2">{formation.name}</h3>
-                        <p className="text-sm text-gray-600 mb-2">
+                        {formation.startDate && formation.endDate && formation.isRegistrationAllowed && new Date(formation.startDate) >= new Date()  &&<p className="text-sm text-gray-600 mb-2">
                           Du {formation.startDate.toLocaleDateString()} au {formation.endDate.toLocaleDateString()}
-                        </p>
-                        {(formation.price && formation.price!=0) &&
+                        </p>}
+                        {(formation.price || formation.price!=0) &&
                           <p className="font-bold text-lg mb-2">{formation.price+".00 DA"}</p>}
                         <p>{formation.remarks}</p>
                       </div>

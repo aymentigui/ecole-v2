@@ -47,9 +47,6 @@ export const recentFormations = async (): Promise<
         const formations = await prisma.formation.findMany({
           where: {
             typeFormation: 1,
-            startDate: {
-              gte: new Date(),
-            },
           },
           orderBy: {
             startDate: 'desc',
@@ -69,9 +66,6 @@ export const recentcollaborations = async (): Promise<
         const collaborations = await prisma.formation.findMany({
           where: {
             typeFormation: 2,
-            startDate: {
-              gte: new Date(),
-            },
           },
           orderBy: {
             startDate: 'desc',

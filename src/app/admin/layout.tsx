@@ -1,6 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/app/admin/components/app-sidebar"
-import { signOut } from "@/auth"
+import { logOut } from "@/actions/login"
 import { Button } from "@/components/ui/button"
 import { LogOut } from "lucide-react"
 
@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <form action={
           async ()=>{
             "use server"
-            await signOut()
+            await logOut()            
           }
         }>
           <Button className="bg-red-600" type='submit'>
