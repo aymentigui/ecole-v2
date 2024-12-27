@@ -112,7 +112,7 @@ individus, de développement personnel et professionnel`)
                 ))}
               </ul>
             </motion.div>
-          </div>
+          </div> 
           <motion.div
             className="mt-16 bg-gradient-to-r from-blue-50 to-blue-100 p-8 rounded-lg shadow-lg"
             initial={{ opacity: 0, y: 50 }}
