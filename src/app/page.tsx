@@ -108,14 +108,14 @@ export default function Home() {
   }, [currentIndexCollaboration, currentIndexFormation])
 
   const handleNextCollaboration = () => {
-    if (collaborations.length < 4)
+    if (collaborations.length < 4 && !isSmallScreen)
       return
     setCurrentIndexCollaboration((prevIndex) => (prevIndex + 1) % collaborations.length);
   };
 
   // Fonction pour aller au slide précédent
   const handlePrevCollaboration = () => {
-    if (collaborations.length < 4)
+    if (collaborations.length < 4 && !isSmallScreen)
       return
     setCurrentIndexCollaboration((prevIndex) =>
       prevIndex === 0 ? collaborations.length - 1 : prevIndex - 1
@@ -123,14 +123,14 @@ export default function Home() {
   };
 
   const handleNextFormation = () => {
-    if (formations.length < 4)
+    if (formations.length < 4 && !isSmallScreen)
       return
     setCurrentIndexFormation((prevIndex) => (prevIndex + 1) % formations.length);
   };
 
   // Fonction pour aller au slide précédent
   const handlePrevFormation = () => {
-    if (formations.length < 4)
+    if (formations.length < 4 && !isSmallScreen)
       return
     setCurrentIndexFormation((prevIndex) =>
       prevIndex === 0 ? formations.length - 1 : prevIndex - 1
@@ -218,11 +218,11 @@ export default function Home() {
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative h-96 overflow-hidden">
+        <section className="relative h-56 md:h-96 overflow-hidden">
           {slides.map((slide, index) => (
             <motion.div
               key={index}
-              className="absolute inset-0"
+              className="absolute h-full w-full inset-0"
               initial={{ opacity: 0 }}
               animate={{ opacity: index === currentSlide ? 1 : 0 }}
               transition={{ duration: 0.5 }}
@@ -256,7 +256,7 @@ export default function Home() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -50 }}
                           transition={{ duration: 0.5 }}
-                        ><Link href={`/collaborations/${collab.id}`}>
+                        ><Link href={`/collaborations/${collab.id??"0"}`}>
                             {collab.photo && <img
                               src={collab.photo}
                               alt={collab.name}
@@ -271,7 +271,7 @@ export default function Home() {
                               </p>}
                               {(collab.price || collab.price != 0) &&
                                 <p className="font-bold text-lg mb-2">{collab.price + ".00 DA"}</p>}
-                              {collab.remarks.length > 100 ? collab.remarks.substring(0, 200) : collab.remarks}
+                                <p>{isSmallScreen?collab.remarks.substring(0, 100) :collab.remarks.substring(0, 200)  }</p>
                             </div>
                           </Link>
                         </motion.div>
@@ -332,7 +332,7 @@ export default function Home() {
                             </p>}
                             {(formation.price || formation.price != 0) &&
                               <p className="font-bold text-lg mb-2">{formation.price + ".00 DA"}</p>}
-                            {formation.remarks.length > 100 ? formation.remarks.substring(0, 100) : formation.remarks}
+                            <p>{isSmallScreen?formation.remarks.substring(0, 100) :formation.remarks.substring(0, 200)  }</p>
                           </div>
                         </Link>
                       </motion.div>
