@@ -9,6 +9,8 @@ import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { getContactSettings } from "@/actions/settings";
 import toast from "react-hot-toast";
+import { InfoIcon, Mail, Phone } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -60,6 +62,7 @@ export default function Contact() {
     }
   };
 
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -86,38 +89,80 @@ export default function Contact() {
             >
               {image && <img src={image} alt="Notre école" className="rounded-lg w-[600px] h-[350px] object-cover object-top" />}
             </motion.div>
-            <div>
-              {(phone1 || phone2 || email || adresse)&& <h2 className="text-2xl font-semibold mb-4">Informations de contact</h2>}
-              {phone1 && <p className="mb-2">Téléphone: {phone1}</p>}
-              {phone2 && <p className="mb-2">Téléphone: {phone2}</p>}
-              {email && <p className="mb-2">Email: {email}</p>}
-              {adresse && <p className="mb-2">Adresse: {adresse}</p>}
+            <div className="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-lg shadow-lg">
+              {(
+                <h2 className="text-2xl  font-bold text-blue-600 mb-6">
+                  <InfoIcon name="info-circle" className="mr-2 inline-block" />
+                  Informations de contact
+                </h2>
+              )}
+
+              <Card className="w-full max-w-md bg-white border border-gray-200 rounded-lg p-4">
+                {phone1 && (
+                  <p className="text-lg text-gray-800 mb-4 flex items-center">
+                    <Phone name="phone" className="text-blue-500 mr-2" />
+                    Téléphone: {phone1}
+                  </p>
+                )}
+                {phone2 && (
+                  <p className="text-lg text-gray-800 mb-4 flex items-center">
+                    <Phone name="phone-alt" className="text-blue-500 mr-2" />
+                    Téléphone: {phone2}
+                  </p>
+                )}
+                {email && (
+                  <p className="text-lg text-gray-800 mb-4 flex items-center">
+                    <Mail  name="envelope" className="text-blue-500 mr-2" />
+                    Email: {email}
+                  </p>
+                )}
+                {adresse && (
+                  <p className="text-lg text-gray-800 mb-4 flex items-center">
+                    <InfoIcon name="map-marker-alt" className="text-blue-500 mr-2" />
+                    Adresse: {adresse}
+                  </p>
+                )}
+              </Card>
             </div>
           </motion.div>
-          <form onSubmit={handleSubmit} className="m-auto space-y-4 max-w-[600px]">
-              <Input
-                type="text"
-                name="name"
-                placeholder="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-              <Input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <Textarea
-                name="content"
-                placeholder="content"
-                value={formData.content}
-                onChange={handleChange}
-              />
-              <Button type="submit" className="w-full">
+          <form
+              onSubmit={handleSubmit}
+              className="m-auto mt-8 space-y-6 max-w-[600px] p-8 bg-white rounded-lg shadow-md border border-gray-200"
+            >
+              <h2 className="text-3xl font-semibold text-center text-blue-600 mb-4">
+                Contactez-Nous
+              </h2>
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Nom"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full p-3 border rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full p-3 border rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                />
+                <textarea
+                  name="content"
+                  placeholder="Votre message"
+                  value={formData.content}
+                  onChange={handleChange}
+                  className="w-full p-3 border rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+              >
                 Envoyer
-              </Button>
+              </button>
             </form>
         </div>
       </main>
