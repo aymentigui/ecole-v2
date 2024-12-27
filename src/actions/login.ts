@@ -3,7 +3,6 @@
 import { LoginSchema } from "@/util/schema/user"
 import { z } from "zod"
 import { signIn, signOut } from "@/auth"
-import { defaultRedirect } from "@/routes"
 import { AuthError } from "next-auth"
 import { redirect } from "next/navigation"
 
@@ -42,7 +41,7 @@ export const login = async  (data: z.infer<typeof LoginSchema>)=>{
 }
 
 export const logOut=async ()=>{
-    const logout=await signOut()
+    const logout=await signOut({redirect:false})
     if(logout)
         redirect(domainUrl+"/auth/login")
 }
