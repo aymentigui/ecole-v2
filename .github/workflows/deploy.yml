@@ -31,4 +31,4 @@ jobs:
         username: electr71
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./  # Tout le projet
-        server-dir: /ecole3
+        server-dir: /home/electr71/ecole3/
