@@ -12,7 +12,6 @@ import { useEffect, useState } from "react"
 import { Formation } from "@prisma/client"
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
-import Image from "next/image"
 
 export default function FormationPage() {
   const { id } = useParams()
@@ -63,9 +62,7 @@ export default function FormationPage() {
           <Card className="overflow-hidden">
             <CardHeader className="relative p-0">
               {formation.photo && (
-                <Image
-                  height={320}
-                  width={100}
+                <img
                   src={formation.photo}
                   alt={formation.name}
                   className="w-full h-80 object-cover"
