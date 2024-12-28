@@ -34,7 +34,7 @@ export async function POST(req: Request) {
   const filePath = path.join(dirPath, fileName);
   try {
     await writeFile(filePath, buffer)
-    data["photo"]=`/formations/${fileName}`    
+    data["photo"]=`/formations-images/${fileName}`    
   } catch (error) {
     console.error('Erreur lors de l\'enregistrement du fichier:', error)
     return NextResponse.json({ error: 'Erreur lors de l\'enregistrement du fichier' }, { status: 500 })
@@ -75,7 +75,7 @@ export async function PUT(req: Request) {
     
     const fileExtension = file.name.split('.').pop();
     const fileName = `${uniqueId}.${fileExtension}`
-    const dirPath = path.join(process.cwd(), 'public', 'formations');
+    const dirPath = path.join(process.cwd(), 'public', 'formations-images');
 
     if (!fs2.existsSync(dirPath)) {
         fs2.mkdirSync(dirPath, { recursive: true });
@@ -83,7 +83,7 @@ export async function PUT(req: Request) {
     const filePath = path.join(dirPath, fileName);
     try {
       await writeFile(filePath, buffer)
-      data["photo"]=`/formations/${fileName}`    
+      data["photo"]=`/formations-images/${fileName}`    
       if (formation.photo) {
         const oldFilePath = path.join(process.cwd(), 'public', formation.photo);
         try {

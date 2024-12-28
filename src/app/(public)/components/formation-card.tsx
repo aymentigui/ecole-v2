@@ -10,7 +10,7 @@ interface FormationCardProps {
 
 export function FormationCard({ formation }: FormationCardProps) {
   return (
-    <Link href={`/collaborations/${formation.id}`}>
+    <Link href={`/formations/${formation.id}`}>
       <Card className="h-full overflow-hidden transition-transform duration-300 hover:scale-105">
         {formation.photo && <img
           src={formation.photo}
