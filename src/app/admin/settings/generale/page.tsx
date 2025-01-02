@@ -28,7 +28,7 @@ export default function GeneralSettings() {
       setSlices(p=>[data.slice1Url??p[0], data.slice2Url??p[1], data.slice3Url??p[2]])
     }
     fetchData()
-  }, [])
+  }, []) 
 
   const handleSiteNameChange = async () => {
     try{
