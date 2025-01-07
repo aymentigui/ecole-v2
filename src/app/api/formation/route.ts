@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   
   const fileExtension = file.name.split('.').pop();
   const fileName = `${uniqueId}.${fileExtension}`
-  const dirPath = path.join(process.cwd(), 'public', 'formations');
+  const dirPath = path.join(process.cwd(), 'public', 'formations-images');
 
   if (!fs2.existsSync(dirPath)) {
     fs2.mkdirSync(dirPath, { recursive: true });
