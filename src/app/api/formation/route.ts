@@ -90,7 +90,7 @@ export async function PUT(req: Request) {
           await fs.unlink(oldFilePath);
         } catch (error) {
           console.error('Erreur lors de la suppression de l\'ancienne photo:', error);
-          return NextResponse.json({ error: 'Erreur lors de la suppression de l\'ancienne photo' }, { status: 500 });
+          //return NextResponse.json({ error: 'Erreur lors de la suppression de l\'ancienne photo' }, { status: 500 });
         }
       }
     } catch (error) {
