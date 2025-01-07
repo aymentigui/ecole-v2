@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const next = require('next');
 
-const port = parseInt(process.env.PORT || process.env.ALWAYSDATA_HTTPD_PORT || '3000', 10);
+const port = parseInt(process.env.PORT ||  '3000', 10);
 const dev = false; // Mettre true pour le mode développement
 const app = next({ dev });
 const handle = app.getRequestHandler();

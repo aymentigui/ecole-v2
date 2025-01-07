@@ -10,8 +10,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Ecole",
-  description: "Ecole de formation",
+  title: "Groupe formactive center dz",
+  description: "Créé en 2022 sous la dénomination Groupement Formactive Center, notre collectif s'est fixé pour mission principale de favoriser la formation continue en Algérie. Avec une approche novatrice centrée sur les entreprises et les individus, le Groupement Formactive Center se distingue par son engagement à répondre aux besoins spécifiques de développement personnel et professionnel. Notre ambition est de devenir un acteur clé dans le paysage de la formation, en proposant des solutions sur mesure et alignées avec les exigences du marché local et international.",
 };
 
 export default function RootLayout({
