@@ -15,7 +15,6 @@ import { fr } from 'date-fns/locale'
 import { getAboutSettings, getGeneralSettings } from '@/actions/settings'
 import { recentcollaborations, recentFormations } from '@/actions/requetes'
 import toast from 'react-hot-toast'
-import { Metadata } from 'next'
 
 const missions = [
   "Inspirer le développement en transformant la formation continue en levier permanent d’apprentissage et de progrès individuel et collectif.",
@@ -29,11 +28,6 @@ const valeurs = [
   "Innovation : Développer des approches et des outils novateurs pour offrir des solutions de formation adaptées aux besoins en évolution des individus et des entreprises.",
   "Éthique et transparence : Nous opérons avec intégrité et transparence, en privilégiant des relations de confiance avec tous nos interlocuteurs.",
 ];
-
-export const metadata: Metadata = {
-  title: "Groupe formactive center dz",
-  description: "Créé en 2022 sous la dénomination Groupement Formactive Center, notre collectif s'est fixé pour mission principale de favoriser la formation continue en Algérie. Avec une approche novatrice centrée sur les entreprises et les individus, le Groupement Formactive Center se distingue par son engagement à répondre aux besoins spécifiques de développement personnel et professionnel. Notre ambition est de devenir un acteur clé dans le paysage de la formation, en proposant des solutions sur mesure et alignées avec les exigences du marché local et international.",
-};
 
 export default function Home() {
   const [collaborations, setCollaborations] = useState<any[]>([]);
